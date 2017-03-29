@@ -28,9 +28,6 @@ dataset = pykitti.raw(basedir, date, drive, frame_range)
 # Load some data
 dataset.load_calib()        # Calibration data are accessible as named tuples
 dataset.load_timestamps()   # Timestamps are parsed into datetime objects
-#dataset.load_oxts()         # OXTS packets are loaded as named tuples
-#dataset.load_gray()         # Left/right images are accessible as named tuples
-#dataset.load_rgb()          # Left/right images are accessible as named tuples
 dataset.load_velo()         # Each scan is a Nx4 array of [x,y,z,reflectance]
 
 # Display some of the data
@@ -81,7 +78,7 @@ for i in frame_range:
 	pcdfile.writelines(list)
 	pcdfile.write('WIDTH ') 
 	pcdfile.write(str(count))
-	pcdfile.write('\nHEIGHT')
+	pcdfile.write('\nHEIGHT ')
 	pcdfile.write(str(1)) 
 	pcdfile.write('\nVIEWPOINT 0 0 0 1 0 0 0')
 	pcdfile.write('\nPOINTS ')
