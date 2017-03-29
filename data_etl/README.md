@@ -6,9 +6,11 @@
 
 6. mkdir approach_1
 7. cd approach_1
-8. rosrun yingzz listener image:=/image_raw
+8. rosrun yingzz imgListener image:=/image_raw
+9. rosrun yingzz velListener pcl:=/velListener
 
-9. <new Terminate> rosbag play approach_1.bag
+10. <new Terminate> rosbag play approach_1.bag
 
-rosrun nodelet nodelet standalone velodyne_pointcloud/CloudNodelet 
-roslaunch velodyne_pointcloud cloud_nodelet.launch
+or 
+
+you can run run.sh.
