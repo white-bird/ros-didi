@@ -9,3 +9,6 @@
 8. rosrun yingzz listener image:=/image_raw
 
 9. <new Terminate> rosbag play approach_1.bag
+
+rosrun nodelet nodelet standalone velodyne_pointcloud/CloudNodelet 
+roslaunch velodyne_pointcloud cloud_nodelet.launch
