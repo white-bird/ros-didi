@@ -16,7 +16,7 @@ basedir = '/Users/bird/Downloads/RSdata/dd/raw_data_downloader'
 
 # Specify the dataset to load
 date = '2011_09_26'
-drive = '0013'
+drive = '0018'
 
 # Optionally, specify the frame range to load
 frame_range = range(0, 144, 1)
@@ -43,6 +43,8 @@ def string2timestamp(d):
 
 output_path = os.path.join(dataset.data_path, 'pcd')
 print output_path
+if not os.path.exists(output_path):  
+   os.makedirs(output_path)
 for i in frame_range:
 	#filename = string2timestamp(dataset.timestamps[i])
 	filename = str(i) + ".pcd"
@@ -54,14 +56,17 @@ for i in frame_range:
 	dis = output[:,3].copy()
 	output[:,3] = map(lambda x : 1,output)
 
-
-	temp = (dataset.calib.FINAL_rect_cam0_velo.dot(output[:,0:4].T)).T
-	temp = np.array(map(lambda x : [x[0]/x[2],x[1]/x[2],1],temp))
-	temp[:,2] = dis
-	temp = temp[np.where(temp[:,0]>0)]
-	temp = temp[np.where(temp[:,0]<1242)]
-	temp = temp[np.where(temp[:,1]>0)]
-	temp = temp[np.where(375>temp[:,1])]
+	temp = (dataset.calib.T_cam0_velo.dot(output[:,0:4].T)).T
+	temp = temp[:,0:4]
+	temp = temp[np.where(temp[:,2]>0)]
+	# temp = (dataset.calib.FINAL_rect_cam0_velo.dot(output[:,0:4].T)).T
+# 	temp = np.array(map(lambda x : [x[0]/x[2],x[1]/x[2],1],temp))
+# 	temp[:,2] = dis
+# 	temp = temp[np.where(temp[:,0]>0)]
+# 	temp = temp[np.where(temp[:,0]<1242)]
+# 	temp = temp[np.where(temp[:,1]>0)]
+# 	temp = temp[np.where(375>temp[:,1])]
+# 	temp[:, 1] = -temp[:, 1]
 	#print temp.shape
 	# f3 = plt.figure()
 # 	ax3 = f3.add_subplot(111)
@@ -85,5 +90,5 @@ for i in frame_range:
 	pcdfile.write(str(count))
 	pcdfile.write('\nDATA ascii\n')
 	for j in range(temp.shape[0]):
-		pcdfile.write(str(temp[j,0]) + ' ' + str(temp[j,1]) + ' ' + str(temp[j,1])+'\n')
+		pcdfile.write(str(temp[j,0]) + ' ' + str(temp[j,1]) + ' ' + str(temp[j,2])+'\n')
 	pcdfile.close()
