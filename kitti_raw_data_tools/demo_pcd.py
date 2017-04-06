@@ -8,7 +8,7 @@ import pykitti
 
 
 # Change this to the directory where you store KITTI data
-filename = '/Users/bird/Downloads/RSdata/dd/raw_data_downloader/range/build/50.pcd'
+filename = './0.pcd'
 RT1 = [[7.533745e-03,-9.999714e-01,-6.166020e-04,-4.069766e-03],[1.480249e-02,7.280733e-04,-9.998902e-01,-7.631618e-02],[9.998621e-01,7.523790e-03,1.480755e-02,-2.717806e-01],[0.,0.,0.,1]] #kitti
 RT2 = [[ 7.5588315892942126e-02, 9.3538503935107931e-02,
 	9.9274213911873932e-01, 9.3900513464616231e-01],[
@@ -43,15 +43,7 @@ while line:
 	point_cloud.append([xyz[0],xyz[1],xyz[2], 1])
 	line = f.readline()
 
-# f, ax = plt.subplots(2, 2, figsize=(15, 5))
-# ax[0, 0].imshow(point_cloud, cmap='gray')
-# ax[0, 0].set_title('Image1')
-# 
-# ax[0, 1].imshow(point_cloud, cmap='gray')
-# ax[0, 1].set_title('Image2')
-# 
-# ax[1, 0].imshow(point_cloud)
-# ax[1, 0].set_title('Image3')
+
 temp = np.array(point_cloud).astype(float)
 #temp = (np.array(RT1).dot(np.array(point_cloud).astype(float).T)).T
 temp = temp[np.where(temp[:,2]>0)]
@@ -89,22 +81,7 @@ print temp2d.shape
 print xyz_info2d.shape
 
 temp3d = temp
-#temp3d = temp3d[np.where(temp3d[:,2]<40)]
-# temp3d = temp3d[np.where(temp3d[:,1]<2)]
-# temp3d = temp3d[np.where(temp3d[:,1]>-10)]
-# temp3d = temp3d[np.where(temp3d[:,2]<8)]
-# temp3d = temp3d[np.where(temp3d[:,2]>-2)]
-#print output
-# Plot every 100th point so things don't get too bogged down
-# f2 = plt.figure()
-# ax2 = f2.add_subplot(111, projection='3d')
-# velo_range = range(0, temp3d.shape[0], 10)
-# ax2.scatter(temp3d[velo_range, 0],
-#             temp3d[velo_range, 2],
-#             -temp3d[velo_range, 1],
-#             c=temp3d[velo_range, 3],
-#             cmap='gray')
-# ax2.set_title('Third Velodyne scan (subsampled)')
+
 
 f3 = plt.figure()
 ax3 = f3.add_subplot(111)
@@ -124,14 +101,6 @@ for i in range(temp2d.shape[0]):
 	img[y:y+ry,x:x+rx,2]=np.array([((xyz_info2d[i,2]*7+0)).clip(1,255)]*ry*rx).reshape(ry,rx)
 	#print x,y,xyz_info2d[i,:]
 	
-# for i in range(temp2d.shape[0]):
-# 	x = int(temp2d[i,0])
-# 	y = int(temp2d[i,1])
-# 	rx = 1;ry = 1
-# 	img[y:y+ry,x:x+rx,0]=np.array([((xyz_info2d[i,0]*15+87)).clip(1,255)]*ry*rx).reshape(ry,rx)
-# 	img[y:y+ry,x:x+rx,1]=np.array([((-xyz_info2d[i,1]*50+130)).clip(1,255)]*ry*rx).reshape(ry,rx)
-# 	img[y:y+ry,x:x+rx,2]=np.array([((xyz_info2d[i,2]*7+0)).clip(1,255)]*ry*rx).reshape(ry,rx)
-print img
 	
 f, ax = plt.subplots(2, 2, figsize=(15, 5))
 ax[0, 0].imshow(np.apply_along_axis(lambda x : [x[0]] * 3,2,img))
