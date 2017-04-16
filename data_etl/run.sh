@@ -27,15 +27,18 @@ function process()
     mkdir ${arr[0]//'/'/} &> /dev/null
 	cd ${arr[0]//'/'/}
 	cmd1="rosrun yingzz imgListener image:=/image_raw"
+    cmd3="rosrun myvel velTransform _calibration:=./aa.yaml"
     cmd2="rosrun yingzz velListener pcl:=/velodyne_points"
     runcmd "$cmd1"
     runcmd "$cmd2"
+    runcmd "$cmd3"
     bag="../"${filename}
     echo $bag
     rosbag play $bag
     sleep 30
     killcmd imgListener
     killcmd velListener
+    killcmd velTransform
     cd ..
 }
 
@@ -44,15 +47,15 @@ sleep 5
 
 #process target
 
-process intersection_1.bag
-process corner_pass.bag
+#process approach_3.bag
+#process corner_pass.bag
 
 #process all
 
-#for filename in ./*.bag
-#do
-#    process $filename
-#done
+for filename in ./*.bag
+do
+    process $filename
+done
 killcmd "roscore"
 killcmd "rosout"
 killcmd "rosmaster"
