@@ -13,7 +13,7 @@
 
 or 
 
-you can run run.sh.
-1.cp run.sh <destdir>
-2.cp aa.yaml <destdir>
-3.sh -x run.sh
+you can run run.sh.  
+1.cp run.sh <destdir>  
+2.cp aa.yaml <destdir>  
+3.sh -x run.sh  

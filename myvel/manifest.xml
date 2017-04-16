@@ -1,0 +1,20 @@
+<package>
+  <description brief="myvel">
+
+     myvel
+
+  </description>
+  <author>bird</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/myvel</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+<depend package="pcl_ros"/>
+<depend package="pcl_conversions"/>
+<depend package="velodyne_msgs"/>
+
+</package>
+
+
