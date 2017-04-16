@@ -10,11 +10,11 @@ __author__ = "Lee Clement"
 __email__ = "lee.clement@robotics.utias.utoronto.ca"
 
 # Change this to the directory where you store KITTI data
-basedir = '/Users/bird/Downloads/RSdata/dd/raw_data_downloader'
+basedir = '/home/bird/workspace/raw_data_downloader/'
 
 # Specify the dataset to load
 date = '2011_09_26'
-drive = '0011'
+drive = '0005'
 
 # Optionally, specify the frame range to load
 frame_range = range(0, 20, 5)
@@ -79,12 +79,18 @@ temp = temp[np.where(temp[:,1]>0)]
 temp = temp[np.where(375>temp[:,1])]
 print temp,temp.shape
 
-
+#13.701,4.571,-1.742
+#dataset.velo[0] = dataset.velo[0][np.where(dataset.velo[0][:,0]>13.701 -2.5)]
+#dataset.velo[0] = dataset.velo[0][np.where(dataset.velo[0][:,0]<13.701 +2.5)]
+#dataset.velo[0] = dataset.velo[0][np.where(dataset.velo[0][:,1]>4.571 -2.5)]
+#dataset.velo[0] = dataset.velo[0][np.where(dataset.velo[0][:,1]<4.571 +2.5)]
+#dataset.velo[0] = dataset.velo[0][np.where(dataset.velo[0][:,2]>-1.742 -1)]
+#dataset.velo[0] = dataset.velo[0][np.where(dataset.velo[0][:,2]<-1.742 +1)]
 #print output
 # Plot every 100th point so things don't get too bogged down
 f2 = plt.figure()
 ax2 = f2.add_subplot(111, projection='3d')
-velo_range = range(0, output.shape[0], 5)
+velo_range = range(0, output.shape[0], 15)
 ax2.scatter(output[velo_range, 0],
             output[velo_range, 1],
             output[velo_range, 2],

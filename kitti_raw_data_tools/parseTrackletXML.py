@@ -31,6 +31,8 @@ from xml.etree.ElementTree import ElementTree
 import numpy as np
 import itertools
 from warnings import warn
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import pykitti
 
 STATE_UNSET = 0
@@ -266,10 +268,9 @@ def parseXML(trackletFile):
     warn('according to xml information the file has {0} tracklets, but parser found {1}!'.format(nTracklets, trackletIdx))
 
   return tracklets
+#end: function parseXML
 
 def draw3d(res):
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
     f2 = plt.figure()
     ax2 = f2.add_subplot(111, projection='3d')
     ax2.scatter(res[0, :],
@@ -330,7 +331,8 @@ def example(kittiDir, cabfileDir):
                 y2 = max(y2,point[1])
                 x1 = min(x1,point[0])
                 y1 = min(y1,point[1])
-            res[absoluteFrameNumber].append(tracklet.objectType + "," + str("%3.3f" % ((x1+x2)/2)) + "," + str("%3.3f" % ((y1+y2)/2))  + "," + str("%3.3f" % (x2-x1)) + "," + str("%3.3f" % (y2-y1)) + "," + str("%3.3f" % x) + "," + str("%3.3f" % y) + "," + str("%3.3f" % z) + "," + str("%3.3f" % l) + "," + str("%3.3f" % w) + "," + str("%3.3f" % h) + ",0,0," + str("%3.3f" % rz) + "," + str(truncation))
+            #print Box2dCabed
+            res[absoluteFrameNumber].append(tracklet.objectType + "," + str("%3.3f" % ((x1+x2)/2)) + "," + str("%3.3f" % ((y1+y2)/2))  + "," + str("%3.3f" % (x2-x1)) + "," + str("%3.3f" % (y2-y1)) + "," + str("%3.3f" % x) + "," + str("%3.3f" % y) + "," + str("%3.3f" % (z + h/2)) + "," + str("%3.3f" % l) + "," + str("%3.3f" % w) + "," + str("%3.3f" % h) + ",0,0," + str("%3.3f" % rz) + "," + str(truncation))
             #draw3d(rotMat.dot(trackletBox))
             #draw3d(Box3dCabed)
     #end: for all frames in track
@@ -346,7 +348,7 @@ def example(kittiDir, cabfileDir):
 if __name__ == "__main__":
   # cmdLineArgs[0] is 'parseTrackletXML.py'
 
-    if len(cmdLineArgs) < 3:
+    if len(cmdLineArgs) < 2:
         example('/home/bird/workspace/raw_data_downloader/2011_09_26/2011_09_26_drive_0005_sync','/home/bird/workspace/raw_data_downloader/2011_09_26/')
     else:
         example(cmdLineArgs[1],cmdLineArgs[2])
