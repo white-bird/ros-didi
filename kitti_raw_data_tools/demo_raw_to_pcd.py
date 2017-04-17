@@ -68,34 +68,11 @@ for i in frame_range:
 	dis = output[:,3].copy()
 	output[:,3] = map(lambda x : 1,output)
 
-<<<<<<< HEAD
-	#temp = (dataset.calib.T_cam0_velo.dot(output[:,0:4].T)).T
-	#temp = temp[:,0:4]
-	#temp = temp[np.where(temp[:,2]>-2)]
 
-    #temp = (dataset.calib.T_cam0_velo.dot(output[:,0:4].T)).T
 	temp = output[:,0:4]
 	temp = temp[np.where(temp[:,0]>-2)]
-	# temp = (dataset.calib.FINAL_rect_cam0_velo.dot(output[:,0:4].T)).T
-# 	temp = np.array(map(lambda x : [x[0]/x[2],x[1]/x[2],1],temp))
-# 	temp[:,2] = dis
-# 	temp = temp[np.where(temp[:,0]>0)]
-# 	temp = temp[np.where(temp[:,0]<1242)]
-# 	temp = temp[np.where(temp[:,1]>0)]
-# 	temp = temp[np.where(375>temp[:,1])]
-# 	temp[:, 1] = -temp[:, 1]
-	#print temp.shape
-	# f3 = plt.figure()
-# 	ax3 = f3.add_subplot(111)
-# 	ax3.scatter(temp[:, 0],-temp[:, 1],c=temp[:, 2]/20,cmap='gray')
-# 	ax3.set_title('2d Velodyne scan (subsampled)')
-# 	plt.show()
-=======
-	temp = (dataset.calib.T_cam0_velo.dot(output[:,0:4].T)).T
-	temp = temp[:,0:4]
-	temp = temp[np.where(temp[:,2]>0)]
 
->>>>>>> 7ee23107421207fb98a6fb5289bcdc33b374d264
+
 
 	count = temp.shape[0]
 	pcdfile = open(output_path + '/' + filename,"w")
